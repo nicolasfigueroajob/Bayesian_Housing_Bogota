@@ -1,0 +1,4 @@
+Resumen de Revisión de Datos - Bogotá DC
+Total registros: 1000
+Acto jurídico más común: ACLARACIÓN
+Zonificación: {'URBANO': 985, 'SIN INFORMACION': 8, 'RURAL': 7}
