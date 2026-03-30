@@ -1,27 +1,43 @@
-# Proyecto de Estadística Bayesiana: Valuación Inmobiliaria en Bogotá
+# Dinámicas del Mercado Inmobiliario en Bogotá: Un Enfoque Social y Comparativo de Modelos Predictivos
 
-Este proyecto utiliza estadística bayesiana para predecir el comportamiento futuro de los precios de bienes raíces en Bogotá, utilizando datos oficiales de registros notariales (SNR).
+Este proyecto aborda la predicción de precios de bienes raíces residenciales en Bogotá como un problema profundamente social marcado por la desigualdad espacial y la estratificación. Se desarrolla un escenario comparativo de modelado que va más allá de buscar un simple "menor margen de error" (RMSE), evaluando **qué modelo es más efectivo según el objetivo de interés y qué aporta cada uno a la comprensión del problema del acceso a la vivienda**.
+
+El proyecto destina su **enfoque y esfuerzo principal a la Estadística Bayesiana**, utilizándola como la herramienta definitiva para medir y proyectar la incertidumbre espacial y el riesgo en transacciones inmobiliarias. 
+
+## 🎯 Enfoque Comparativo del Proyecto
+
+En el proyecto se entrenan y analizan los siguientes tipos de modelos extraídos de la literatura:
+
+1. **Modelo Hedónico/Lineal (Clásico OLS):**  
+   *Aporte Social:* Alta interpretabilidad socioeconómica. Nos permite responder de manera exacta cuánto impacta el "estrato institucional" o el "área" en la formación del costo de la vivienda. Ideal para guiar **Política Pública**.
+2. **Modelo Computacional Predictivo (Random Forest):**  
+   *Aporte Social/Técnico:* Alta capacidad de asimilar dinámicas no lineales complejas del entorno urbano. Utilizado como _Baseline Predictivo_ de alta fidelidad, de gran utilidad para estimadores y tasaciones rápidas corporativas.
+3. **⭐ Modelo Probabilístico Bayesiano (Foco Principal):**  
+   *Aporte Social:* Proporciona una cuantificación rigurosa del **Riesgo y la Incertidumbre**. Al generar distribuciones (intervalos de credibilidad) en vez de valores puntuales absolutos, este modelo permite detectar desigualdades de la información, informando qué nivel de riesgo asumen los habitantes en zonas dispares de la ciudad de Bogotá.
 
 ## 🚀 Conexión de Datos
-El proyecto se conecta dinámicamente a la API de [datos.gov.co](https://www.datos.gov.co/resource/7y2j-43cv.json) para filtrar información de Bogotá D.C. sin necesidad de descargas masivas de archivos locales.
 
-### Variables del Modelo Bayesiano Propuesto
+El repositorio emplea los datos oficiales de transacciones verificadas (SNR/IGAC). Las consultas se conectan dinámicamente a la API gubernamental de [datos.gov.co](https://www.datos.gov.co/resource/7y2j-43cv.json) para el espectro de Bogotá D.C. restringido para actos residenciales.
 
-| Elemento | Variable Propuesta | Definición | Nivel |
-| :--- | :--- | :--- | :--- |
-| **Variable Dependiente** | `valor` | Precio de transacción inmobiliaria registrado. | Inmueble |
-| **Independiente 1** | `orip` | Oficina de Registro (Proxy geográfico: Cercado, Centro, Sur). | Zona |
-| **Independiente 2** | `year_radica` | Año de radicación (Tendencia temporal). | Tiempo |
-| **Independiente 3** | `num_anotacion` | Complejidad del historial del predio (Proxy antigüedad). | Inmueble |
-| **Independiente 4** | `tipo_predio_zona`| Clasificación (Urbano / Rural). | Zona |
+### Variables Estructurales y Sociales
+
+| Elemento | Variable Propuesta | Enfoque de Estudio |
+| :--- | :--- | :--- |
+| **Variable Dependiente** | `valor` | Costo del acceso a la vivienda formal comercializada. |
+| **Socio-Espacial 1** | `orip` / `localidad` / `zona` | Segmentación y segregación espacial en la urbe. |
+| **Socio-Económico 2**| `estrato` (*Por incorporar/Mapear*) | Influencia burocrática en la valoración social y estatus del predio. |
+| **Físico/Estructural**| `area` / `edad` | Desvalorización y condiciones habitables. |
+| **Temporal** | `year_radica` | Dinámicas de inflación y shocks del mercado (ej. Post-pandemia). |
 
 ## 📂 Estructura del Proyecto
-- `data/`: Contiene muestras de datos en JSON/CSV y resúmenes de revisión técnica.
-- `src/`: 
-  - `fetch_bogota_data.py`: Script para extracción de muestras locales.
-  - `dynamic_query_trends.py`: Consultas SoQL directas para análisis de tendencias.
-  - `data_review.py`: Script de análisis estadístico profundo (EDA).
-- `notebooks/`: Análisis exploratorio y prototipado de modelos bayesianos (PyMC).
 
-## 📊 Problemas Identificados
-- **Faltantes**: El 90% de los datos no reportan valor comercial explícito. Se recomienda usar modelos de imputación bayesiana o filtrado por actos de `COMPRAVENTA`.
+- `data/`: Datos transaccionales en JSON/CSV utilizados y registros técnicos.
+- `src/`: 
+  - Scripts de recuperación oficial (`fetch_bogota_data.py`, `fetch_all_bogota.py`)
+  - Control de limpieza de datos crudos institucionales a través de EDA (`data_review.py`).
+- `notebooks/`: Cuadernos dedicados a la fase comparativa, exploración descriptiva con enfoque social, y la implementación primaria del Modelo de Estadística Bayesiana vía `PyMC`.
+
+## 📊 Retos y Trabajo Futuro
+
+- **Heterogeneidad de Datos Restantes:** La gran mayoría de los registros crudos no reportan su precio real comercial explícito debido a prácticas de subdeclaración o vacíos de formato notarial.
+- Es vital usar los algoritmos **Bayesianos** para evaluar precisamente la incertidumbre producida por esta deficiencia institucional asimétrica sobre la población que busca adquirir vivienda en el contexto presente de la ciudad.
