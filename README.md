@@ -29,6 +29,21 @@ El repositorio emplea los datos oficiales de transacciones verificadas (SNR/IGAC
 | **Físico/Estructural**| `area` / `edad` | Desvalorización y condiciones habitables. |
 | **Temporal** | `year_radica` | Dinámicas de inflación y shocks del mercado (ej. Post-pandemia). |
 
+## 🚀 Configuración y Datos
+
+Dado el tamaño del dataset completo (~1.2 GB), este no se encuentra alojado directamente en el repositorio de GitHub. Para obtener los datos actualizados desde la fuente oficial (SODA API):
+
+1. **Instalar dependencias necesarias:**
+   ```bash
+   pip install requests
+   ```
+
+2. **Ejecutar el script de descarga:**
+   ```bash
+   python fetch_all_bogota.py
+   ```
+   *Nota: El proceso descarga aproximadamente 4 millones de registros y puede tomar varios minutos dependiendo de la conexión a internet.*
+
 ## 📂 Estructura del Proyecto
 
 - `data/`: Datos transaccionales en JSON/CSV utilizados y registros técnicos.
